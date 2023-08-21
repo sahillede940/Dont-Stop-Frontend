@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  transition: all 0.2s ease;
+
+  font-family: 'Titillium Web', sans-serif;
+
+}
+
+:root {
+  --bg: #daf0ff;
+  --pri: #003053;
+  --sec: #4c00cf;
+  --ter: #0101ab;
+  --grad: linear-gradient(60deg, #c2f2ff 30%, #d7eeff 100%);
+  --gradn: linear-gradient(120deg, #caeaff 30%, rgb(239, 245, 255) 60%, #e5e0ff 100%);
+  --body: linear-gradient(60deg, #dcf9ff 30%, #eafff1 100%);
+}
+
+body {
+  background: var(--body);
+}
+
+// var(--pri);

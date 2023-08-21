@@ -1,0 +1,128 @@
+.lol {
+    display: flex;
+    justify-content: center;
+
+    .MainCardDiv {
+        display: flex;
+        justify-content: center;
+        background: var(--gradn);
+        margin: 1% 5%;
+        max-width: 1080px;
+        padding: 0;
+        border-radius: 10px;
+        box-shadow: 1px 2px 20px #E5E0FF;
+
+        .status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            margin: 0.2rem;
+            // color: black;   
+        }
+
+        .card-sec {
+            display: flex;
+            background-color: rgba(221, 221, 221, 0.178);
+            padding: 0.6rem;
+            border-radius: 4px;
+            margin: 0.2rem;
+            justify-content: space-around;
+            margin: 1rem 0;
+
+            .pro {
+                border-right: 1px solid rgb(189, 189, 189);
+            }
+
+            >div {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                padding: 0 20px;
+
+
+                div {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .card-data {
+            margin: 2rem;
+        }
+
+
+        .card-main {
+            h3 {
+                font-size: 2.4rem;
+                font-family: 'Play', sans-serif;
+                color: var(--pri);
+            }
+
+            p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                color: var(--pri);
+
+                span {
+                    color: var(--sec);
+                    text-transform: capitalize;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        img {
+            width: 700px;
+            aspect-ratio: 1.4;
+            object-fit: cover;
+            margin: 1rem;
+        }
+
+        .card-img {
+            display: flex;
+            align-items: center;
+        }
+
+        .card-btn {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .Eventlogo {
+            width: 300px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+    }
+
+
+    @media screen and (max-width: 960px) {
+        .MainCardDiv {
+            flex-direction: column;
+
+            .card-main {
+                text-align: center;
+            }
+
+            .card-img {
+                align-self: center;
+            }
+
+            .card-sec {
+                flex-direction: column;
+
+                .pro {
+                    border-bottom: 1px solid rgb(189, 189, 189);
+                    border-right: none;
+
+                }
+            }
+
+
+        }
+    }
+}
