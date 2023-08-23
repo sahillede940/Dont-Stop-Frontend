@@ -1,4 +1,5 @@
-const BACKEND_URL= "https://web-a-thon-backend.vercel.app"
+const BACKEND_URL= "https://difficult-gray-waistcoat.cyclic.cloud"
+// const BACKEND_URL= "http://localhost:5000"
 
 console.log(BACKEND_URL)
 export const sign_in = `${BACKEND_URL}/api/auth/login/`;
@@ -10,7 +11,7 @@ export const SHOW_MY_REQ = `${BACKEND_URL}/api/comp/showMyRequests/`;
 export const viewApp = `${BACKEND_URL}/api/auth/getById/`;
 export const DELETE_COMP = `${BACKEND_URL}/api/comp/deleteCompetition/`;
 export const POST_COMP = `${BACKEND_URL}/api/comp/createCompetition/`;
-export const APPLY_COMP = `${BACKEND_URL}/api/comp/applyCompetition/`;
+export const APPLY_COMP = `${BACKEND_URL}/api/comp/applyCompetition/`;  
 export const ACCEPT_COMP = `${BACKEND_URL}/api/comp/acceptCompetition/`;
 export const COMP_STATUS = `${BACKEND_URL}/api/comp/compStatus/`;
 export const REMOVE_COMP = `${BACKEND_URL}/api/comp/removeCompetition/`;
