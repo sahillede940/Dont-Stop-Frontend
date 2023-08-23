@@ -1,4 +1,4 @@
-const BACKEND_URL= "http://localhost:5000"
+const BACKEND_URL= "https://web-a-thon-backend.vercel.app"
 
 console.log(BACKEND_URL)
 export const sign_in = `${BACKEND_URL}/api/auth/login/`;
