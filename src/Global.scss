@@ -9,15 +9,29 @@
 
 }
 
-:root {
+.light_theme {
   --bg: #daf0ff;
   --pri: #003053;
   --sec: #4c00cf;
   --ter: #0101ab;
   --grad: linear-gradient(60deg, #c2f2ff 30%, #d7eeff 100%);
-  --gradn: linear-gradient(120deg, #caeaff 30%, rgb(239, 245, 255) 60%, #e5e0ff 100%);
+  --gradn: linear-gradient(120deg, #caeaff 30%, rgb(255, 239, 239) 60%, #e5e0ff 100%);
   --body: linear-gradient(60deg, #dcf9ff 30%, #eafff1 100%);
 }
+
+.dark_theme {
+  --bg: #121212; /* Dark background color */
+  --pri: #90a0b7; /* Adjusted primary color */
+  --sec: #b77dff; /* Adjusted secondary color */
+  --ter: #65b2ff; /* Adjusted tertiary color */
+  --grad: linear-gradient(60deg, #0a0c0e 30%, #121416 100%); /* Dark gradient */
+  --gradn: linear-gradient(120deg, #121416 30%, #0a0c0e 60%, #0d1012 100%); /* Dark gradient */
+  --body: linear-gradient(60deg, #0d1012 30%, #0a0c0e 100%); /* Dark gradient */
+  
+  /* Additional adjustments for text and other elements */
+  color: #f0f0f0; /* Light text color for dark background */
+}
+
 
 body {
   background: var(--body);

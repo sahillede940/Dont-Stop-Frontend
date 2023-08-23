@@ -54,7 +54,7 @@ const Signup = () => {
     }
 
     if (!error) {
-      axios
+      await axios
         .post(signup, {
           email: email,
           password: password,
@@ -66,6 +66,8 @@ const Signup = () => {
           if (res.data.success) {
             toast.dismiss(id);
             toast.success("Registration success");
+            navigate("/");
+            window.location.reload();
           } else {
             toast.dismiss(id);
             toast.error(res.data.message);
@@ -89,7 +91,7 @@ const Signup = () => {
             <div className="login-text">
               <h1>Sign Up</h1>
               <p className="welcome">
-                Hello, Create an account to use our portal!{" "}
+                Hello, Create an account to use our portal!
               </p>
 
               <form className="flex-c">
@@ -184,8 +186,8 @@ const Signup = () => {
                 <br></br>
                 <span className="extra-line">
                   <span>Already have an account?</span>
-                  <a
-                    className="cursorError"
+                  <a className="cursorError"
+                    href
                     onClick={() => {
                       navigate("/signin");
                     }}
@@ -198,132 +200,6 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      {/* <div style={{ alignItems: "center", justifyContent: "center" }}>
-          <div
-            style={{
-              width: "80%",
-              backgroundColor: "#E5E0FF",
-              padding: "20px",
-              margin: "50px auto",
-              borderRadius: "10px",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <p>Email id</p>
-              <input
-                type="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                style={{
-                  width: "50%",
-                  borderStyle: "none",
-                  height: "30px",
-                  borderRadius: "10px",
-                  margin: "5px auto",
-                  padding: "10px",
-                }}
-                placeholder="abc@xyz.com"
-              />
-              {colemail && <div className="red-para">Email is not valid</div>}
-            </div>
-            <div style={{ display: "flex" }}>
-              <p>Password</p>
-              <input
-                type="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                style={{
-                  width: "50%",
-                  borderStyle: "none",
-                  height: "30px",
-                  borderRadius: "10px",
-                  margin: "5px auto",
-                  padding: "10px",
-                }}
-                placeholder="********"
-              />
-              {colpassword && <div className="red-para">Password must be 6 characters long</div>}
-            </div>
-            <div style={{ display: "flex" }}>
-              <p>Full Name</p>
-              <input
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                style={{
-                  width: "50%",
-                  borderStyle: "none",
-                  height: "30px",
-                  borderRadius: "10px",
-                  margin: "5px auto",
-                  padding: "10px",
-                }}
-                placeholder="Name"
-              />
-              {colname && <div className="red-para">Full name is required</div>}
-            </div>
-            <div style={{ display: "flex" }}>
-              <p>College</p>
-              <input
-                onChange={(e) => {
-                  setCollege(e.target.value);
-                }}
-                style={{
-                  width: "50%",
-                  borderStyle: "none",
-                  height: "30px",
-                  borderRadius: "10px",
-                  margin: "5px auto",
-                  padding: "10px",
-                }}
-                placeholder="IIT Kharagpur"
-              />
-              {colcollege && <div className="red-para">College is required</div>}
-            </div>
-            <div style={{ display: "flex" }}>
-              <p>About</p>
-              <input
-                onChange={(e) => {
-                  setAbout(e.target.value);
-                }}
-                style={{
-                  width: "50%",
-                  borderStyle: "none",
-                  height: "30px",
-                  borderRadius: "10px",
-                  margin: "5px auto",
-                  padding: "10px",
-                }}
-                placeholder="I am a coder and ....."
-              />
-              {colabout && <div className="red-para">About can not be empty</div>}
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignContent: "center",
-                justifyContent: "center",
-              }}
-            >
-              <button
-                style={{
-                  backgroundColor: "green",
-                  border: 0,
-                  borderRadius: "5px",
-                  padding: "10px 20px",
-                  margin: "10px",
-                  cursor: 'pointer'
-                }}
-                onClick={handleSubmit}
-              >
-                Signup
-              </button>
-            </div>
-          </div>
-        </div> */}
     </>
   );
 };

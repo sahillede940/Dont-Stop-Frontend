@@ -11,7 +11,7 @@ const NavOpts = [
   { id: 4, opt: "Profile", href: "/profile" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ toggleTheme }) => {
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("curUser")) {
@@ -21,7 +21,11 @@ const Navbar = () => {
   return (
     <nav className="nav">
       <div className="nav_container">
-        <h3 className="nav_team">Team Akatsuki</h3>
+        <h3 className="nav_team">Dont Stop</h3>
+        <label class="switch">
+          <input type="checkbox" onClick={toggleTheme} />
+          <span class="slider"></span>
+        </label>
         <ul className="nav_links">
           {NavOpts.map((NavOpt) => {
             const { opt, href, id } = NavOpt;

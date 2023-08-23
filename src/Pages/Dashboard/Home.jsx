@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import data from "../../cp.json";
 import ContestCard from "../../Components/ContestCard/ContestCard";
 import axios from "axios";
-
+import { ALL_COMPS } from "../../Url"
 
 const Home = () => {
   const [cps, setCps] = useState([]);
@@ -12,16 +11,15 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`http://localhost:5000/api/comp/getAllCompetitions`)
+        .get(ALL_COMPS)
         .then(function (res) {
           setCps(res.data.Competitions);
           console.log(res.data.Competitions);
         })
         .catch(function (err) {
-          // console.log(err);
+          console.log(err);
         });
     };
-
     fetchData();
   }, []);
 

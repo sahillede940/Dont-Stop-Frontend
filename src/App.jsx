@@ -1,5 +1,5 @@
 import "./App.scss";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "./Components/Navbar/Navbar";
 import { Routes, Route, Router } from "react-router-dom";
 import Home from "./Pages/Dashboard/Home";
@@ -14,10 +14,37 @@ import Decision from "./Components/Accept/Decline/Decision";
 import ViewUser from "./Components/ViewUser/ViewUser";
 
 function App() {
+
+  const [theme, setTheme] = useState("light_theme");
+  let dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const toggleTheme = () => {
+    if (theme === "dark_theme") {
+      setTheme("light_theme");
+    } else {
+      setTheme("dark_theme");
+    }
+  };
+
+  const toggleTheme_userPref = () => {
+    if (dark === true) {
+      setTheme("dark_theme");
+    } else {
+      setTheme("light_theme");
+    }
+  };
+
+  useEffect(() => {
+    toggleTheme_userPref();
+  }, [dark]);
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
  
   return (
     <div className="App">
-      <Navbar />
+      <Navbar toggleTheme={toggleTheme}/>
       <MenuOverlay />
       <Routes>
         <Route path="/" element={<Signin />} />

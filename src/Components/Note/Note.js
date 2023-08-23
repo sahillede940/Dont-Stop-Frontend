@@ -39,7 +39,7 @@ export default function Note(props) {
     }
     return (<>
         <ToastContainer position="top-right"/>
-        <div style={{ display: 'flex', minWidth: '200px', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', minWidth: '40vw', minHeight:"40vh", flexDirection: 'column' }}>
             <label>Add a note</label>
             <textarea onChange={(e) => { setNote(e.target.value) }} value={note}></textarea>
             <button onClick={handleSubmit} className="Button apply">Send Request</button>

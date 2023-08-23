@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { sign_in } from "../../Url";
 import "./Profile.scss";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const Signin = () => {
 
   useEffect(() => {
     if (localStorage.getItem("curUser")) {
-      navigate("/profile");
+      navigate("/dashboard");
     }
   }, []);
 
@@ -30,11 +30,11 @@ const Signin = () => {
           toast.success("Logged in");
           // console.log(res.data.user);
           localStorage.setItem("curUser", JSON.stringify(res.data.user));
-          navigate("/profile");
+          navigate("/");
           window.location.reload();
         } else {
           toast.dismiss(id);
-          toast.error("Some internal error occured, contact admin");
+          toast.error("Invalid Email or Wrong Password");
         }
       })
       .catch((er) => {

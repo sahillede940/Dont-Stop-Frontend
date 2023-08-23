@@ -7,8 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Typography } from "@mui/material";
-import { ACCEPT_COMP, COMP_STATUS, MY_COMPS, REMOVE_COMP } from "../../../Url";
+import {   Typography } from "@mui/material";
+import { ACCEPT_COMP, COMP_STATUS, REMOVE_REQ } from "../../../Url";
 import { useLocation } from "react-router";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
@@ -158,7 +158,7 @@ export default function Decision() {
                     <button
                       onClick={() => {
                         axios
-                          .put(REMOVE_COMP, { userSelectorId: row._id })
+                          .delete(REMOVE_REQ + row._id)
                           .then((res) => {
                             if (res.data.success) {
                               window.location.reload();

@@ -1,14 +1,17 @@
-export const url = "http://localhost:5000/api";
+const BACKEND_URL= "http://localhost:5000"
 
-export const sign_in = `${url}/auth/login`;
-export const signup = `${url}/auth/signup`;
+console.log(BACKEND_URL)
+export const sign_in = `${BACKEND_URL}/api/auth/login/`;
+export const signup = `${BACKEND_URL}/api/auth/signup/`;
  
-export const MY_COMPS = `${url}/comp/getMyCompetitions/`;
-export const SHOW_MY_REQ = `${url}/comp/showMyRequests/`;
-export const viewApp = `${url}/auth/getById/`;
-export const DELETE_COMP = `${url}/comp/deconsteCompetition/`;
-export const POST_COMP = `${url}/comp/createCompetition`;
-export const APPLY_COMP = `${url}/comp/APPLY_COMPetition`;
-export const ACCEPT_COMP = `${url}/comp/ACCEPT_COMPetition`;
-export const COMP_STATUS = `${url}/comp/COMP_STATUS/`;
-export const REMOVE_COMP = `${url}/comp/REMOVE_COMPetition`;
+export const ALL_COMPS = `${BACKEND_URL}/api/comp/getAllCompetitions/`;
+export const MY_COMPS = `${BACKEND_URL}/api/comp/getMyCompetitions/`;
+export const SHOW_MY_REQ = `${BACKEND_URL}/api/comp/showMyRequests/`;
+export const viewApp = `${BACKEND_URL}/api/auth/getById/`;
+export const DELETE_COMP = `${BACKEND_URL}/api/comp/deleteCompetition/`;
+export const POST_COMP = `${BACKEND_URL}/api/comp/createCompetition/`;
+export const APPLY_COMP = `${BACKEND_URL}/api/comp/applyCompetition/`;
+export const ACCEPT_COMP = `${BACKEND_URL}/api/comp/acceptCompetition/`;
+export const COMP_STATUS = `${BACKEND_URL}/api/comp/compStatus/`;
+export const REMOVE_COMP = `${BACKEND_URL}/api/comp/removeCompetition/`;
+export const REMOVE_REQ = `${BACKEND_URL}/api/comp/removeRequest/`;
