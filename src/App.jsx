@@ -1,5 +1,5 @@
 import "./App.scss";
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Components/Navbar/Navbar";
 import { Routes, Route, Router } from "react-router-dom";
 import Home from "./Pages/Dashboard/Home";
@@ -12,9 +12,9 @@ import Requested from "./Pages/Requested/Requested";
 import MenuOverlay from "./Components/MenuOverlay/MenuOverlay";
 import Decision from "./Components/Accept/Decline/Decision";
 import ViewUser from "./Components/ViewUser/ViewUser";
+import RequireAuth from "./ReqAuth";
 
 function App() {
-
   const [theme, setTheme] = useState("light_theme");
   let dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -41,25 +41,27 @@ function App() {
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
- 
+
   return (
     <div className="App">
-      <Navbar toggleTheme={toggleTheme}/>
+      <Navbar toggleTheme={toggleTheme} />
       <MenuOverlay />
       <Routes>
-        <Route path="/" element={<Signin />} />
+        {/* Auth Routes */}
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <>
+
+        {/* Protected Routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Home />} />
           <Route path="/posted" element={<PostedContest />} />
           <Route path="/applied" element={<Requested />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/view-application" element={<Decision />} />
           <Route path="/view-user" element={<ViewUser />} />
-
           <Route path="/view-profile/:id" element={<ViewUser />} />
-        </>
+        </Route>
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

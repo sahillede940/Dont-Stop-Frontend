@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import ContestCard from "../../Components/ContestCard/ContestCard";
-import axios from "axios";
-import { ALL_COMPS } from "../../Url"
+import axiosInstance from "../../axiosInstance";
+import { ALL_COMPS } from "../../Url";
 
 const Home = () => {
   const [cps, setCps] = useState([]);
+  const [next, setNext] = useState(null);
+  const [prev, setPrev] = useState(null);
   const [query, setQuery] = useState("");
   const curUser = JSON.parse(localStorage.getItem("curUser"));
 
+  const fetchData = async (link) => {
+    await axiosInstance
+      .get(link)
+      .then(function (res) {
+        setCps(res.data.results);
+        setNext(res.data.next);
+        setPrev(res.data.previous);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get(ALL_COMPS)
-        .then(function (res) {
-          setCps(res.data.Competitions);
-          console.log(res.data.Competitions);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
-    };
-    fetchData();
+    fetchData(ALL_COMPS);
   }, []);
 
   return (
@@ -37,6 +40,11 @@ const Home = () => {
           }}
         />
       </div>
+      {!cps.length &&
+        <h1>
+          No Competition has been posted Yet !!!!!
+        </h1>
+      }
       {cps
         .filter((cp) => {
           const { name } = cp;
@@ -47,25 +55,44 @@ const Home = () => {
           }
         })
         .map((cp) => {
-          let already = false;
-          for (const user of cp.applied_users) {
-            // console.log(user, curUser._id)
-            if (user.userApplied === curUser._id) {
-              already = true;
-            }
-          }
-          if (cp.creator?._id != curUser._id) {
+          if (cp.creator != curUser.id) {
             return (
-              <ContestCard
-                key={cp._id}
-                {...cp}
-                already={already}
-                apply="true"
-                posted="true"
-              />
+              <ContestCard key={cp.id} {...cp} apply="true" posted="true" />
             );
           }
         })}
+      {(next || prev) && <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: "1rem auto",
+          padding: "10px 1rem",
+        }}
+        className="pc-container"
+      >
+        {next && (
+          <button
+            className="Button apply"
+            style={{
+              alignItems: "end",
+            }}
+            onClick={() => fetchData(next)}
+          >
+            Next
+          </button>
+        )}
+        {prev && (
+          <button
+            style={{
+              alignItems: "start",
+            }}
+            className="Button apply"
+            onClick={() => fetchData(prev)}
+          >
+            Prev
+          </button>
+        )}
+      </div>}
     </div>
   );
 };

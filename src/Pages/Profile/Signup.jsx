@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [name, setName] = useState("");
   const [college, setCollege] = useState("");
   const [about, setAbout] = useState("");
@@ -58,6 +59,7 @@ const Signup = () => {
         .post(signup, {
           email: email,
           password: password,
+          password2: password2,
           about: about,
           college: college,
           fullName: name,
@@ -66,7 +68,7 @@ const Signup = () => {
           if (res.data.success) {
             toast.dismiss(id);
             toast.success("Registration success");
-            navigate("/");
+            navigate("/signin");
             window.location.reload();
           } else {
             toast.dismiss(id);
@@ -132,6 +134,24 @@ const Signup = () => {
                       Password must be 6 characters long
                     </div>
                   )}
+                </div>
+                <div className="input-box">
+                  <span className="label">Password2</span>
+                  <div className=" flex-r input">
+                    <input
+                      type="password"
+                      onChange={(e) => {
+                        setPassword2(e.target.value);
+                      }}
+                      placeholder="********"
+                    ></input>
+                    <i className="fas fa-at"></i>
+                  </div>
+                  {/* {password2Match && (
+                    <div className="red-para">
+                      Password must be 6 characters long
+                    </div>
+                  )} */}
                 </div>
                 <div className="input-box">
                   <span className="label">Full Name</span>

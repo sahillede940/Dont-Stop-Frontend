@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ContestCard from "../../Components/ContestCard/ContestCard";
 import { MY_COMPS, POST_COMP } from "../../Url";
-import axios from "axios";
+import axiosInstance from '../../axiosInstance'
 
 import "./PostedContest.scss";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,11 +19,10 @@ const PostedContest = () => {
   const curUser = JSON.parse(localStorage.getItem("curUser"));
   useEffect(() => {
     const fetchData = async () => {
-      await axios
-        .get(`${MY_COMPS + curUser._id}`)
+      await axiosInstance
+        .get(`${MY_COMPS}`)
         .then(function (res) {
-          setCps(res.data.Competitions);
-          // console.log(res.data.Competitions);
+          setCps(res.data.competitions);
         })
         .catch(function (err) {
           // console.log(err);
@@ -57,13 +56,13 @@ const PostedContest = () => {
     }
 
     if (!error) {
-      axios
+      axiosInstance
         .post(POST_COMP, {
           name: name,
-          teamSize: teamMembers,
+          teamsize: teamMembers,
           location: location,
           description: description,
-          creator: curUser._id,
+          creator: curUser.id,
           deadline: deadline,
         })
         .then((res) => {
@@ -147,7 +146,7 @@ const PostedContest = () => {
       </div>
 
       {cps?.map((cp) => {
-        return <ContestCard key={cp._id} {...cp} del="true" />;
+        return <ContestCard key={cp.id} {...cp} del="true" />;
       })}
     </div>
   );

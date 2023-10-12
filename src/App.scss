@@ -25,10 +25,6 @@ h3 {
     }
 }
 
-.accepted {
-    background: rgb(168, 255, 168);
-    border: 1px solid rgb(122, 255, 122);
-}
 
 
 .yellow {
@@ -39,6 +35,11 @@ h3 {
         background: rgb(221, 255, 221);
         border: 1px solid rgb(255, 217, 0);
     }
+}
+
+.accepted{
+    background: rgb(168, 255, 168);
+    border: 1px solid rgb(122, 255, 122);
 }
 
 .cancel {

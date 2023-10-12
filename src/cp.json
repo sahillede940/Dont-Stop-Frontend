@@ -1,11 +1,11 @@
 [
   {
-    "_id": "63cbada74033bfd6ae2ea25c",
+    "id": "63cbada74033bfd6ae2ea25c",
     "name": "Competition 1",
     "teamSize": 6,
     "description": "Test Competition ",
     "creator": {
-      "_id": "63cba139c22881df57714dba",
+      "id": "63cba139c22881df57714dba",
       "fullName": "Himanshu",
       "email": "himan@gmaixl.com",
       "password": "$2b$10$INx0GNcP0gZxn1FlEDljw.8w53ToN1Yu7sXfmm9YsrnCgDrdBW2Pa",

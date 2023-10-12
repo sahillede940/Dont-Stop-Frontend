@@ -6,7 +6,8 @@ import Decision from "../Accept/Decline/Decision";
 import Note from "../Note/Note";
 import "./ContestCard.scss";
 import { comp1, comp2, comp3, comp4, comp5, comp6 } from "../../assets/assets";
-import axios from "axios";
+import { comp } from "../../assets/assets";
+import axiosInstance from "../../axiosInstance";
 import { DELETE_COMP } from "../../Url";
 
 function formatDate(date) {
@@ -33,19 +34,20 @@ const style = {
 const ContestCard = (props) => {
   const {
     apply,
-    already,
+    already_applied,
     del,
     posted,
     req,
     name,
-    teamSize,
+    teamsize,
     description,
     deadline,
     createdAt,
     location,
     creator,
-    _id,
+    id,
     status,
+    is_accepted,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -54,18 +56,11 @@ const ContestCard = (props) => {
   const [open2, setOpen2] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    console.log(props)
     let vari = name.length % 6;
-    if (vari === 0) setImgg(comp1);
-    else if (vari === 1) setImgg(comp2);
-    else if (vari === 2) setImgg(comp3);
-    else if (vari === 3) setImgg(comp4);
-    else if (vari === 4) setImgg(comp5);
-    else if (vari === 5) setImgg(comp6);
+    setImgg(comp[vari]);
   }, []);
 
   const handleOpen2 = () => setOpen2(true);
@@ -94,7 +89,7 @@ const ContestCard = (props) => {
           <div className="card-sec">
             <div className="pro">
               <div className="card-info"> Team-Size</div>
-              <p>{teamSize}</p>
+              <p>{teamsize}</p>
             </div>
             <div className="pro">
               <div>Location</div>
@@ -111,21 +106,40 @@ const ContestCard = (props) => {
           </div>
 
           <div className="card-btn">
-            {!already && apply && <button onClick={handleOpen2} className="Button apply">Apply</button>}
+            {!already_applied && apply && (
+              <button onClick={handleOpen2} className="Button apply">
+                Apply
+              </button>
+            )}
             {/* <button className="Button cancel">Cancel</button> */}
-            {!already && del && (
-              <button onClick={()=>{
-                navigate('/view-application', {state: {...props}})
-              }} className="Button apply">
+            {!already_applied && del && (
+              <button
+                onClick={() => {
+                  navigate("/view-application", { state: { ...props } });
+                }}
+                className="Button apply"
+              >
                 View Applications
               </button>
             )}
-            {!already && del && <button onClick={()=>{
-              axios.delete(DELETE_COMP+_id).then(res=>{
-                window.location.reload()
-              })
-            }} className="Button cancel">Delete</button>}
-            {already && <button className="Button yellow">Already Applied</button>}
+            {!already_applied && del && (
+              <button
+                onClick={() => {
+                  axiosInstance.delete(DELETE_COMP + id).then((res) => {
+                    window.location.reload();
+                  });
+                }}
+                className="Button cancel"
+              >
+                Delete
+              </button>
+            )}
+            {(already_applied && !is_accepted) && (
+              <button className="Button yellow">Already Applied</button>
+            )}
+            {is_accepted && (
+              <button className="Button accepted">Accepted</button>
+            )}
             {/* // modal for admin */}
             <Modal
               open={open}
@@ -147,8 +161,8 @@ const ContestCard = (props) => {
             >
               <Box sx={style}>
                 <Note
-                  userApplied={curUser._id}
-                  competition={props._id}
+                  userApplied={curUser.id}
+                  competition={props.id}
                   fullName={curUser.fullName}
                 />
               </Box>

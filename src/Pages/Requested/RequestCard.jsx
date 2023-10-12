@@ -1,6 +1,4 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { SHOW_MY_REQ } from "../../Url";
+import React from "react";
 import "./RequestCard.scss";
 
 const RequestCard = ({ name, status }) => {

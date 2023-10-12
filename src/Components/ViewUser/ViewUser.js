@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import { viewApp } from "../../Url";
 import { useParams, useSearchParams } from "react-router-dom";
 import './Profile.scss'
@@ -8,7 +8,7 @@ const ViewUser = () => {
   const [user, setUser] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    axios.get(viewApp+id).then(res=>{
+    axiosInstance.get(viewApp+id).then(res=>{
         setUser(res.data.user)
     })
   });

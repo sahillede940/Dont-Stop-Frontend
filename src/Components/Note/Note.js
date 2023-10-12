@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,18 +9,10 @@ export default function Note(props) {
     const [note, setNote] = useState('')
     const navigate = useNavigate();
     const handleSubmit = () => {
-        console.log({
-            userApplied: props.userApplied,
-            competition: props.competition,
-            note: note,
-            fullName: props.fullName
-        });
+        console.log(props)
         const t = toast.loading("Please Wait...")
-        axios.put(APPLY_COMP, {
-            userApplied: props.userApplied,
-            competition: props.competition,
-            note: note,
-            fullName: props.fullName
+        axiosInstance.patch(APPLY_COMP + props.competition + '/apply/', {
+            note: note
         }).then(res => {
             console.log(res.data);
             if (res.data.success) {

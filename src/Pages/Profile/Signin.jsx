@@ -28,9 +28,9 @@ const Signin = () => {
         if (res.data.success) {
           toast.dismiss(id);
           toast.success("Logged in");
-          // console.log(res.data.user);
+          localStorage.setItem("token", JSON.stringify(res.data.token));
           localStorage.setItem("curUser", JSON.stringify(res.data.user));
-          navigate("/");
+          navigate("/dashboard");
           window.location.reload();
         } else {
           toast.dismiss(id);

@@ -7,10 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {   Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ACCEPT_COMP, COMP_STATUS, REMOVE_REQ } from "../../../Url";
 import { useLocation } from "react-router";
-import axios from "axios";
+import axiosInstance from "../../../axiosInstance";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -32,19 +32,22 @@ export default function Decision() {
   // // console.log(props);
 
   useEffect(() => {
-    axios.get(`${COMP_STATUS + props._id}`).then((res) => {
-      if (res.data.success) {
-        // // console.log(res.data);
-        let data = groupBy2(res.data.users, "status");
-        if (data.true) setRows2(data.true);
-        else setRows2([]);
-        if (data.false) setRows(data.false);
-        else setRows([]);
-      }
-    });
+    axiosInstance
+      .get(`${COMP_STATUS + props.id + "/compStatus/"}`)
+      .then((res) => {
+        if (res.data.success) {
+          // // console.log(res.data);
+          let data = groupBy2(res.data.users, "status");
+          if (data.true) setRows2(data.true);
+          else setRows2([]);
+          if (data.false) setRows(data.false);
+          else setRows([]);
+        }
+      });
   }, []);
   const [rows2, setRows2] = useState([]);
   const [rows, setRows] = useState([]);
+  console.log(props.id)
 
   return (
     <>
@@ -72,13 +75,13 @@ export default function Decision() {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.fullName}
+                    {row.user_applied.fullName}
                   </TableCell>
                   <TableCell align="right">
                     <button
                       onClick={() => {
                         window.open(
-                          `/view-profile/${row.userApplied}`,
+                          `/view-profile/${row.user_applied}`,
                           "_blank"
                         );
                       }}
@@ -91,19 +94,24 @@ export default function Decision() {
                   <TableCell align="right">
                     <button
                       onClick={() => {
-                        console.log(rows2.length, props.teamSize);
-                        if (rows2.length < props.teamSize) {
-                          axios
-                            .put(ACCEPT_COMP, {
-                              userSelectorId: row._id,
-                            })
-                            .then((res) => {
-                              if (res.data.success) {
-                                window.location.reload();
-                              }
-                            });
+                        console.log(rows2.length, props.teamsize);
+                        if (rows2.length < props.teamsize) {
+                          try {
+                            axiosInstance
+                              .patch(ACCEPT_COMP + "accept/", {
+                                userSelectorId: row.id,
+                                compId: props.id,
+                              })
+                              .then((res) => {
+                                if (res.data.success) {
+                                  window.location.reload();
+                                }
+                              });
+                          } catch (error) {
+                            toast.error("Some internal error");
+                          }
                         } else {
-                          toast.error("Team size already full");
+                          toast.error("full team");
                         }
                       }}
                       className="Button apply"
@@ -138,13 +146,13 @@ export default function Decision() {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.fullName}
+                    {row.user_applied.fullName}
                   </TableCell>
                   <TableCell align="right">
                     <button
                       onClick={() => {
                         window.open(
-                          `/view-profile/${row.userApplied}`,
+                          `/view-profile/${row.user_applied}`,
                           "_blank"
                         );
                       }}
@@ -157,8 +165,8 @@ export default function Decision() {
                   <TableCell align="right">
                     <button
                       onClick={() => {
-                        axios
-                          .delete(REMOVE_REQ + row._id)
+                        axiosInstance
+                          .delete(REMOVE_REQ + props.id + "/remove/" + row.id)
                           .then((res) => {
                             if (res.data.success) {
                               window.location.reload();

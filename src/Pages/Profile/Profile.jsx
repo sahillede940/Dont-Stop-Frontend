@@ -19,6 +19,10 @@ const Profile = () => {
       <div className="pc-container">
         <h2>My Profile</h2>
         <div>
+          <p>Id</p>
+          <div className="profile-val">{user?.id}</div>
+        </div>
+        <div>
           <p>Email id</p>
           <div className="profile-val">{user?.email}</div>
         </div>
