@@ -10,9 +10,6 @@
 }
 
 .profile {
-    h2 {
-        font-family: 'Play', sans-serif;
-    }
 
     .profile-val {
         width: 100%;
@@ -143,7 +140,6 @@
     margin-bottom: 10px;
     font-size: 16px;
     color: var(--pri);
-    transition: all 0.3s linear;
 }
 
 .login-box .btn:hover {

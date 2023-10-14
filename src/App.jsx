@@ -1,9 +1,9 @@
 import "./App.scss";
 import React, { useState, useEffect } from "react";
 import Navbar from "./Components/Navbar/Navbar";
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Dashboard/Home";
-import PostedContest from "./Pages/PostedContest/PostedContest";
+import PostCompetition from "./Pages/PostCompetition/PostCompetition";
 import Profile from "./Pages/Profile/Profile";
 import Error from "./Pages/Error/Error";
 import Signin from "./Pages/Profile/Signin";
@@ -13,10 +13,12 @@ import MenuOverlay from "./Components/MenuOverlay/MenuOverlay";
 import Decision from "./Components/Accept/Decline/Decision";
 import ViewUser from "./Components/ViewUser/ViewUser";
 import RequireAuth from "./ReqAuth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [theme, setTheme] = useState("light_theme");
-  let dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  let dark = false;
 
   const toggleTheme = () => {
     if (theme === "dark_theme") {
@@ -44,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position="top-right" />
       <Navbar toggleTheme={toggleTheme} />
       <MenuOverlay />
       <Routes>
@@ -55,7 +58,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Home />} />
-          <Route path="/posted" element={<PostedContest />} />
+          {/* <Route path="/competition/:compId" element={<Competition />} /> */}
+          <Route path="/posted" element={<PostCompetition />} />
           <Route path="/applied" element={<Requested />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/view-application" element={<Decision />} />

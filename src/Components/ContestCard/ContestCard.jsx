@@ -9,6 +9,7 @@ import { comp1, comp2, comp3, comp4, comp5, comp6 } from "../../assets/assets";
 import { comp } from "../../assets/assets";
 import axiosInstance from "../../axiosInstance";
 import { DELETE_COMP } from "../../Url";
+import { useSelector } from "react-redux";
 
 function formatDate(date) {
   let readableDate = new Date(date);
@@ -48,6 +49,7 @@ const ContestCard = (props) => {
     id,
     status,
     is_accepted,
+    fullName,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -66,7 +68,7 @@ const ContestCard = (props) => {
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);
 
-  const curUser = JSON.parse(localStorage.getItem("curUser"));
+  const curUser = useSelector((state) => state.auth).user;
 
   return (
     <div className="lol">
@@ -79,7 +81,7 @@ const ContestCard = (props) => {
             <h3>{name}</h3>
             {posted && (
               <p>
-                Posted By: <span>{creator?.fullName}</span>
+                Posted By: <span>{fullName}</span>
               </p>
             )}
           </div>
@@ -134,13 +136,13 @@ const ContestCard = (props) => {
                 Delete
               </button>
             )}
-            {(already_applied && !is_accepted) && (
+            {already_applied && !is_accepted && (
               <button className="Button yellow">Already Applied</button>
             )}
             {is_accepted && (
               <button className="Button accepted">Accepted</button>
             )}
-            {/* // modal for admin */}
+            
             <Modal
               open={open}
               onClose={handleClose}
@@ -152,20 +154,16 @@ const ContestCard = (props) => {
                 <Decision {...props} />
               </Box>
             </Modal>
-            {/*Modal for apply*/}
-            <Modal
-              open={open2}
-              onClose={handleClose2}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
+
+            <Modal open={open2} onClose={handleClose2}>
+              <div>
                 <Note
                   userApplied={curUser.id}
-                  competition={props.id}
+                  competition={id}
                   fullName={curUser.fullName}
+                  handleClose={() => handleClose2()}
                 />
-              </Box>
+              </div>
             </Modal>
           </div>
         </div>

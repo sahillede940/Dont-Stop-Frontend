@@ -1,35 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap");
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-  // transition: all 0.2s ease;
-
-  font-family: 'Titillium Web', sans-serif;
-
+  transition: 0.2s ease-in-out;
+  font-family: "Fira Code", monospace;
 }
 
 .light_theme {
-  --bg: #daf0ff;
-  --pri: #003053;
-  --sec: #4c00cf;
-  --ter: #0101ab;
-  --grad: linear-gradient(60deg, #c2f2ff 30%, #d7eeff 100%);
-  --gradn: linear-gradient(120deg, #caeaff 30%, rgb(255, 239, 239) 60%, #e5e0ff 100%);
-  --body: linear-gradient(60deg, #dcf9ff 30%, #eafff1 100%);
+  --bg: #3c5464;
+  --pri: black;
+  --sec: #b56666;
+  --grad: #EAC7C7;
+  --gradn: #F8E8EE;
+  --body: #FAF3F0;
 }
-
 .dark_theme {
-  --bg: #121212; /* Dark background color */
-  --pri: #90a0b7; /* Adjusted primary color */
-  --sec: #b77dff; /* Adjusted secondary color */
-  --ter: #65b2ff; /* Adjusted tertiary color */
-  --grad: linear-gradient(60deg, #0a0c0e 30%, #121416 100%); /* Dark gradient */
-  --gradn: linear-gradient(120deg, #121416 30%, #0a0c0e 60%, #0d1012 100%); /* Dark gradient */
-  --body: linear-gradient(60deg, #0d1012 30%, #0a0c0e 100%); /* Dark gradient */
-  
-  /* Additional adjustments for text and other elements */
-  color: #f0f0f0; /* Light text color for dark background */
+  --bg: #EFE1D1;     /* Background color */
+  --pri: #ffffff;    /* Primary color */
+  --sec: #EFE1D1;   /* Secondary color */
+  --grad: #643d51;  /* Gradient color */
+  --gradn: #3F2E3E; /* Gradient highlight color */
+  --body: #331D2C;  /* Body/text color */
 }
 
 

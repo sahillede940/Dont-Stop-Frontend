@@ -1,8 +1,7 @@
-@import "https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Play&display=swap";
-
-h3 {
-    font-family: 'Play', sans-serif;
+.App {
+    max-width: 1400px;
+    margin: 0 auto;
+    
 }
 
 .Button {
@@ -13,6 +12,7 @@ h3 {
     padding: 0.2rem 1rem;
     margin: 0.6rem;
     cursor: pointer;
+    color: black;
 }
 
 .apply {
@@ -55,4 +55,28 @@ h3 {
 .rejected {
     background: rgb(255, 150, 150);
     border: 1px solid rgb(255, 150, 150);
+}
+
+.underline{
+    background: black;
+    height: 10px;
+    width: 100%;
+}
+
+.btn_reload{
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    color: black;
+    font-size: 1rem;
+    padding: 0.2rem 1rem;
+    margin: auto;
+    margin-left: 0.6rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    &:hover{
+        background: rgb(255, 255, 255);
+        border: 1px solid rgb(255, 255, 255);
+        color: black;
+    }
 }

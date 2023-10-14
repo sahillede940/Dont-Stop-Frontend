@@ -1,11 +1,11 @@
 .pc-container {
     width: 60%;
     min-width: 340px;
-    background: var(--gradn);
-    padding: 2rem;
+    padding: 1rem;
     margin: 50px auto;
     border-radius: 10px;
     justify-content: center;
+    background: var(--gradn);
 
     h2 {
         display: flex;
@@ -21,14 +21,13 @@
         border-style: none;
         height: 40px;
         border-radius: 4px;
-        margin: 5px auto;
         padding: 10px;
         resize: vertical;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     >div p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     textarea {

@@ -1,40 +1,51 @@
 import axiosInstance from "../../axiosInstance";
 import React, { useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { APPLY_COMP } from "../../Url";
-import { useNavigate } from "react-router";
 
-export default function Note(props) {
-    const [note, setNote] = useState('')
-    const navigate = useNavigate();
-    const handleSubmit = () => {
-        console.log(props)
-        const t = toast.loading("Please Wait...")
-        axiosInstance.patch(APPLY_COMP + props.competition + '/apply/', {
-            note: note
-        }).then(res => {
-            console.log(res.data);
-            if (res.data.success) {
-                toast.dismiss(t)
-                toast.success("Successfully Applied")
-                navigate('/dashboard')
-            }
-            else {
-                toast.dismiss(t)
-                toast.error("Some internal error")
-            }
-        }).catch(er => {
-                toast.dismiss(t)
-                toast.error("Some internal error")
-        })
+export const Note = (props) => {
+  const [note, setNote] = useState("");
+
+  const handleSubmit = async () => {
+    const t = toast.loading("Please Wait...");
+    try {
+      const response = await axiosInstance.patch(
+        APPLY_COMP + props.competition + "/apply/",
+        {
+          note: note,
+        }
+      );
+      props.setOpen2(false);
+      toast.dismiss(t);
+      console.log("Response:", response.response.data.message);
+    } catch (error) {
+      toast.dismiss(t);
+      console.error("Error:", error);
+      toast.error(error.response.data.message);
+      props.setOpen2(false);
     }
-    return (<>
-        <ToastContainer position="top-right"/>
-        <div style={{ display: 'flex', minWidth: '40vw', minHeight:"40vh", flexDirection: 'column' }}>
-            <label>Add a note</label>
-            <textarea onChange={(e) => { setNote(e.target.value) }} value={note}></textarea>
-            <button onClick={handleSubmit} className="Button apply">Send Request</button>
+  };
+
+  return (
+    <>
+      <div className="pc-container">
+        <h2>Post competition</h2>
+        <div>
+          <p>Add a note</p>
+          <textarea
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
+            value={note}
+            placeholder="Type your personalized note here..."
+          ></textarea>
         </div>
-    </>)
-}
+        <button onClick={handleSubmit} className="Button apply">
+          Send Request
+        </button>
+      </div>
+    </>
+  );
+};
+
+export default Note;

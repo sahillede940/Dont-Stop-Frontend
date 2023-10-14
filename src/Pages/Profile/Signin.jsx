@@ -1,24 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { sign_in } from "../../Url";
 import "./Profile.scss";
 import { useNavigate } from "react-router";
+import {
+  setAccessToken,
+  setRefreshToken,
+  setUser,
+} from "../../Redux/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem("curUser")) {
-      navigate("/dashboard");
-    }
-  }, []);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
 
   const handleSubmit = () => {
-    const id = toast.loading("Please wait...");
+    const id = toast.loading("Authenticating...");
     axios
       .post(sign_in, {
         email: email,
@@ -26,25 +29,31 @@ const Signin = () => {
       })
       .then((res) => {
         if (res.data.success) {
+          localStorage.setItem(
+            "refreshToken",
+            JSON.stringify(res.data.token?.refresh)
+          );
+
+          dispatch(setUser(res.data.user));
+          dispatch(setAccessToken(res.data.token?.access));
+          dispatch(setRefreshToken(res.data.token?.refresh));
           toast.dismiss(id);
-          toast.success("Logged in");
-          localStorage.setItem("token", JSON.stringify(res.data.token));
-          localStorage.setItem("curUser", JSON.stringify(res.data.user));
+          toast.success(res.data.message);
+
           navigate("/dashboard");
-          window.location.reload();
         } else {
           toast.dismiss(id);
           toast.error("Invalid Email or Wrong Password");
         }
       })
-      .catch((er) => {
+      .catch((err) => {
         toast.dismiss(id);
-        toast.error("Some internal error occured, contact admin");
+        toast.error(err.response.data.detail);
       });
   };
+
   return (
     <>
-      <ToastContainer />
       <div className="login-box">
         <div className=" flex-r">
           <div className="flex-r login-wrapper">
@@ -89,17 +98,21 @@ const Signin = () => {
                 <div className="btn cursorError" onClick={handleSubmit}>
                   Login
                 </div>
-                <span className="extra-line">
-                  <span>Not Registered? </span>
-                  <a className="cursorError"
-                    onClick={() => {
-                      navigate("/signup");
-                    }}
-                  >
-                    Sign Up
-                  </a>
-                </span>
               </form>
+              <span className="extra-line">
+                <span>Not Registered? </span>
+                <span
+                  className="cursorError"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                  style={{
+                    color: "var(--sec)",
+                  }}
+                >
+                  Sign Up
+                </span>
+              </span>
             </div>
           </div>
         </div>

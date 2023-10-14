@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Navbar.scss";
 
 import { Link } from "react-router-dom";
-const curUser = JSON.parse(localStorage.getItem("curUser"));
+import { useSelector } from "react-redux";
+import Switch from "react-js-switch";
 
 const NavOpts = [
   { id: 1, opt: "Home", href: "/dashboard" },
@@ -12,27 +13,22 @@ const NavOpts = [
 ];
 
 const Navbar = ({ toggleTheme }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(
+    useSelector((state) => state.auth.user) ? true : false
+  );
+  const user = useSelector((state) => state.auth.user);
   useEffect(() => {
-    if (localStorage.getItem("curUser")) {
-      setShow(true);
-    }
-  }, [show]);
+    setShow(user ? true : false);
+  }, [user]);
+
   return (
     <nav className="nav">
       <div className="nav_container">
         <h3 className="nav_team">Dont Stop</h3>
-        <label class="switch">
-          <input type="checkbox" onClick={toggleTheme} />
-          <span class="slider"></span>
-        </label>
+        <Switch onChange={toggleTheme} />
         <ul className="nav_links">
           {NavOpts.map((NavOpt) => {
             const { opt, href, id } = NavOpt;
-            if (id === 4) {
-              if (curUser) {
-              }
-            }
             if (show) {
               return (
                 <li key={id} className="nav_links_li">

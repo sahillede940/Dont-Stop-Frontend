@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import validator from "validator";
 import { signup } from "../../Url";
 import "./Profile.scss";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -24,11 +24,13 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const curUser = useSelector(state => state.auth.user)
+
   useEffect(() => {
-    if (localStorage.getItem("curUser")) {
+    if (curUser) {
       navigate("/profile");
     }
-  }, []);
+  }, [curUser]);
 
   const handleSubmit = async () => {
     const id = toast.loading("Please wait...");
@@ -69,7 +71,6 @@ const Signup = () => {
             toast.dismiss(id);
             toast.success("Registration success");
             navigate("/signin");
-            window.location.reload();
           } else {
             toast.dismiss(id);
             toast.error(res.data.message);
@@ -77,7 +78,9 @@ const Signup = () => {
         })
         .catch((er) => {
           toast.dismiss(id);
-          toast.error("Some internal error occured, contact admin");
+          for(let i in er.response.data.detail){
+            toast.error(er.response.data);
+          }
         });
     } else {
       toast.dismiss(id);
@@ -86,7 +89,6 @@ const Signup = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="login-box">
         <div className=" flex-r">
           <div className="flex-r login-wrapper">
@@ -136,7 +138,7 @@ const Signup = () => {
                   )}
                 </div>
                 <div className="input-box">
-                  <span className="label">Password2</span>
+                  <span className="label">Confirm Password</span>
                   <div className=" flex-r input">
                     <input
                       type="password"

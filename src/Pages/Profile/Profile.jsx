@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
+import { logout } from "../../Redux/AuthSlice";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
+  const curUser = useSelector((state) => state.auth).user;
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    if (!localStorage.getItem("curUser")) {
-      navigate("/signin");
-    } else {
-      setUser(JSON.parse(localStorage.getItem("curUser")));
-    }
-  }, []);
+    if (!curUser) navigate("/signin");
+    else setUser(curUser);
+  }, [curUser]);
 
   return (
     <div className="profile">
@@ -43,8 +46,9 @@ const Profile = () => {
             className="Button yellow"
             onClick={() => {
               localStorage.clear();
-              navigate("/signup");
-              window.location.reload();
+              dispatch(logout())
+              toast.success("Logged out successfully");
+              navigate("/signin");
             }}
           >
             Logout
